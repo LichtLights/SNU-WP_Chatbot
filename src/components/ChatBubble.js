@@ -1,4 +1,26 @@
+
+// firebase 관련 모듈을 불러옵니다.
+import { db } from "@/firebase";
+import {
+  collection,
+  query,
+  doc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  orderBy,
+  where,
+} from "firebase/firestore";
+
 export const ChatBubble = ({ message }) => {
+
+  const AIDialog = collection(db, "AIDialogs");
+
+  const docRef = addDoc(AIDialog, {
+    dialog: message.content,
+  });
+
   return (
     <div
       className={`flex flex-col ${

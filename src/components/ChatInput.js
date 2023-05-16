@@ -1,11 +1,27 @@
 import { IconArrowUp } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
 
+// firebase 관련 모듈을 불러옵니다.
+import { db } from "@/firebase";
+import {
+  collection,
+  query,
+  doc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  orderBy,
+  where,
+} from "firebase/firestore";
+
 export const ChatInput = ({ onSendMessage }) => {
   const [content, setContent] = useState();
 
   // 입력창의 속성을 참조하기 위한 ref
   const textareaRef = useRef(null);
+
+  const userDialog = collection(db, "userDialogs");
 
   // 입력창의 내용이 변경될 때마다 실행되는 함수
   // 입력창의 내용이 변경되면 content 를 입력창의 값으로 변경한다
@@ -19,6 +35,11 @@ export const ChatInput = ({ onSendMessage }) => {
     if (!content) {
       alert("메시지를 입력하세요.");
       return;
+    }
+    else {
+      const docRef = addDoc(userDialog, {
+        dialog: content,
+      });
     }
 
     // 입력창의 내용을 onSend 함수를 통해 전달한다

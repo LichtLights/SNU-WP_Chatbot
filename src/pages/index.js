@@ -83,7 +83,7 @@ export default function Home() {
         content: "안녕? 나는 엘리엇이야. 오늘은 무슨 일이 있었니?",
       },
     ]);
-  };
+  };  
 
   // 메시지 목록이 업데이트 될 때마다 맨 아래로 스크롤
   useEffect(() => {

@@ -2,6 +2,23 @@ import { Chat } from "@/components/Chat";
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 
+// firebase 관련 모듈을 불러옵니다.
+import { db } from "@/firebase";
+import {
+  collection,
+  query,
+  doc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  orderBy,
+  where,
+} from "firebase/firestore";
+
+const userDialog = collection(db, "userDialogs");
+const AIDialog = collection(db, "AIDialogs");
+
 export default function Home() {
   /*
     메시지 목록을 저장하는 상태로, 메시지의 형태는 다음과 같음
@@ -34,6 +51,11 @@ export default function Home() {
     // message 를 받아 메시지 목록에 추가
     // message 형태 = { role: "user", content: string }
     // ChatInput.js 26번째 줄 참고
+    // 유저 대화 firebase에 저장
+    const docRef = addDoc(userDialog, {
+      dialog: message.content,
+    });
+    console.log(message.content);
     const updatedMessages = [...messages, message];
     // console.log(updatedMessages);
     // console.log(updatedMessages.slice(-6));
@@ -62,6 +84,14 @@ export default function Home() {
     // 응답을 JSON 형태로 변환
     // 비동기 API 를 사용하여 응답을 받기 때문에 await 사용
     const result = await response.json();
+
+    // AI 대화 firebase에 저장
+    console.log(result.content);
+    if(message.role === "assistant") {
+      const docRef = addDoc(AIDialog, {
+        dialog: message.content,
+      });
+    }
 
     if (!result) {
       return;

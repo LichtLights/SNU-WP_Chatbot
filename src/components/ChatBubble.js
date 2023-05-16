@@ -13,13 +13,21 @@ import {
   where,
 } from "firebase/firestore";
 
+const userDialog = collection(db, "userDialogs");
+const AIDialog = collection(db, "AIDialogs");
+
 export const ChatBubble = ({ message }) => {
 
-  const AIDialog = collection(db, "AIDialogs");
-
-  const docRef = addDoc(AIDialog, {
-    dialog: message.content,
-  });
+  if(message.role === "assistant") {
+    const docRef = addDoc(AIDialog, {
+      dialog: message.content,
+    });
+  }
+  else {
+    const docRef = addDoc(userDialog, {
+      dialog: message.content,
+    });
+  }
 
   return (
     <div

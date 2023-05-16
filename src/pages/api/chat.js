@@ -1,19 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
 
-// firebase 관련 모듈을 불러옵니다.
-import { db } from "@/firebase";
-import {
-  collection,
-  query,
-  doc,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  orderBy,
-  where,
-} from "firebase/firestore";
-
 // OpenAI API 환경 변수 설정
 const configuration = new Configuration({
   organization: process.env.OPENAI_ORGANIZATION,

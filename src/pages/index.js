@@ -85,14 +85,15 @@ export default function Home() {
     const result = await response.json();
 
     // AI 대화 firebase에 저장
-    if(message.role === "assistant") {
-      const docRef = addDoc(AIDialog, {
-        dialog: message.content,
-      });
-    }
+    
 
     if (!result) {
       return;
+    }
+    else {
+      const docRef = addDoc(AIDialog, {
+        dialog: result.content,
+      });
     }
 
     // console.log(result);

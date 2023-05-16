@@ -55,7 +55,6 @@ export default function Home() {
     const docRef = addDoc(userDialog, {
       dialog: message.content,
     });
-    console.log(message.content);
     const updatedMessages = [...messages, message];
     // console.log(updatedMessages);
     // console.log(updatedMessages.slice(-6));
@@ -86,7 +85,6 @@ export default function Home() {
     const result = await response.json();
 
     // AI 대화 firebase에 저장
-    console.log(result.content);
     if(message.role === "assistant") {
       const docRef = addDoc(AIDialog, {
         dialog: message.content,
